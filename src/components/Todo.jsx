@@ -3,8 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { FaTrash, FaSave, FaEdit } from "react-icons/fa";
 import { GrCheckboxSelected, GrCheckbox } from "react-icons/gr";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   completeTodo,
   removeTodo,
@@ -15,27 +14,27 @@ import {
   removeSBTodo,
   updateSBTodo,
 } from "../redux/sbactions/SBTodoActions";
+
 const Todo = ({ todo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingText, setEditingText] = useState("");
+  const mockFlag = useSelector((state) => state.common.mock);
+
   const dispatch = useDispatch();
-  const { backend } = useParams();
 
   const removeTodoById = () => {
-    backend === "mock"
-      ? dispatch(removeTodo(todo.id))
-      : dispatch(removeSBTodo(todo.id));
+    mockFlag ? dispatch(removeTodo(todo.id)) : dispatch(removeSBTodo(todo.id));
   };
 
   const editTodo = () => {
-    backend === "mock"
+    mockFlag
       ? dispatch(updateTodo(todo.id, editingText))
       : dispatch(updateSBTodo(todo.id, editingText));
     setIsEditing(false);
   };
 
   const markTodoCompleted = (todoId, completed) => {
-    backend === "mock"
+    mockFlag
       ? dispatch(completeTodo(todoId, completed))
       : dispatch(completeSBTodo(todoId, completed));
   };

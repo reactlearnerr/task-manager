@@ -1,17 +1,16 @@
 import { Box, Container, Grid, Icon, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { MdSaveAlt } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo } from "../redux/actions/TodoActions";
 import { addSBTodo } from "../redux/sbactions/SBTodoActions";
 
 const TodoForm = () => {
   const [title, setTitle] = useState("");
-  const { backend } = useParams();
   const dispatch = useDispatch();
-
+  const mockFlag = useSelector((state) => state.common.mock);
   const saveTodo = () => {
-    dispatch(addSBTodo(title));
+    mockFlag ? dispatch(addTodo(title)) : dispatch(addSBTodo(title));
   };
   return (
     <Box

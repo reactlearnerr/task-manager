@@ -1,7 +1,6 @@
 import { Box, Divider, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { getTodos } from "../redux/actions/TodoActions";
 import { getSBTodos } from "../redux/sbactions/SBTodoActions";
 import Todo from "./Todo";
@@ -10,10 +9,10 @@ import TodoForm from "./TodoForm";
 const Todos = () => {
   const { todos, isLoading, error } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
-  const { backend } = useParams();
+  const mockFlag = useSelector((state) => state.common.mock);
 
   useEffect(() => {
-    backend === "mock" ? dispatch(getTodos()) : dispatch(getSBTodos());
+    mockFlag ? dispatch(getTodos()) : dispatch(getSBTodos());
   }, []);
 
   return (

@@ -8,7 +8,6 @@ import { mockFlagAction } from "../redux/actions/CommonActions";
 const Home = () => {
   const mockFlag = useSelector((state) => state.common.mock);
   const dispatch = useDispatch();
-  console.log(mockFlag);
 
   const handleChange = () => {
     dispatch(mockFlagAction());
