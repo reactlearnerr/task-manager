@@ -1,5 +1,10 @@
 import axios from "axios";
-import { getAllTodosUrl, addNewTodoUrl, deleteTodoUrl } from "../../apis";
+import {
+  getAllTodosUrl,
+  addNewTodoUrl,
+  deleteTodoUrl,
+  updateTodoUrl,
+} from "../../apis";
 import {
   ADD_TODO,
   ADD_TODOS,
