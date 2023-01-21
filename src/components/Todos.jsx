@@ -13,7 +13,7 @@ const Todos = () => {
   const { backend } = useParams();
 
   useEffect(() => {
-    backend ? dispatch(getSBTodos()) : dispatch(getTodos());
+    backend !== "mock" ? dispatch(getSBTodos()) : dispatch(getTodos());
   }, []);
 
   return (
