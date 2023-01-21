@@ -2,23 +2,42 @@ import { Box, Input, Typography } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import { FaTrash, FaSave, FaEdit } from "react-icons/fa";
+import { GrCheckboxSelected, GrCheckbox } from "react-icons/gr";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { removeTodo, updateTodo } from "../redux/actions/TodoActions";
-import { updateSBTodo } from "../redux/sbactions/SBTodoActions";
+import {
+  completeTodo,
+  removeTodo,
+  updateTodo,
+} from "../redux/actions/TodoActions";
+import {
+  completeSBTodo,
+  removeSBTodo,
+  updateSBTodo,
+} from "../redux/sbactions/SBTodoActions";
 const Todo = ({ todo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingText, setEditingText] = useState("");
   const dispatch = useDispatch();
   const { backend } = useParams();
-  console.log(backend);
-  const removeTodoById = () => {};
+
+  const removeTodoById = () => {
+    backend === "mock"
+      ? dispatch(removeTodo(todo.id))
+      : dispatch(removeSBTodo(todo.id));
+  };
 
   const editTodo = () => {
     backend === "mock"
       ? dispatch(updateTodo(todo.id, editingText))
       : dispatch(updateSBTodo(todo.id, editingText));
     setIsEditing(false);
+  };
+
+  const markTodoCompleted = (todoId, completed) => {
+    backend === "mock"
+      ? dispatch(completeTodo(todoId, completed))
+      : dispatch(completeSBTodo(todoId, completed));
   };
 
   return (
@@ -41,7 +60,7 @@ const Todo = ({ todo }) => {
             <Typography variant="h6">{todo.title}</Typography>
           )}
         </div>
-        <div onClick={() => dispatch(removeTodo(todo.id))} className="delete">
+        <div onClick={removeTodoById} className="delete">
           {<FaTrash />}
         </div>
         {isEditing ? (
@@ -53,6 +72,12 @@ const Todo = ({ todo }) => {
             {<FaEdit />}
           </div>
         )}
+        <div
+          onClick={() => markTodoCompleted(todo.id, !todo.completed)}
+          className="delete"
+        >
+          {todo.completed ? <GrCheckboxSelected /> : <GrCheckbox />}
+        </div>
       </Box>
     </>
   );

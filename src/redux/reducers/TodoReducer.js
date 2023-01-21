@@ -5,6 +5,7 @@ import {
   DELETE_TODO,
   GET_TODO,
   LOADING_TODO,
+  TOGGLE_COMPLETE,
   SB_UPDATE_TODO,
   SHOW_ERROR,
   UPDATE_TODO,
@@ -53,13 +54,21 @@ const TodoReducer = (state = initialState, action) => {
           return { ...todo, title: action.payload.editingText };
         else return todo;
       });
-      console.log(todos);
       return { ...state, todos: todos, isLoading: false };
     }
     case SHOW_ERROR:
       return { ...state, error: action.payload, isLoading: false };
     case ADD_TODO_ERROR:
       return { ...state, error: action.payload, isLoading: false };
+    case TOGGLE_COMPLETE: {
+      const todos = state.todos.map((todo) => {
+        if (todo.id === action.payload.todoId) {
+          console.log({ ...todo, completed: action.payload.completed });
+          return { ...todo, completed: action.payload.completed };
+        } else return todo;
+      });
+      return { ...state, todos: todos, isLoading: false };
+    }
     default:
       return state;
   }

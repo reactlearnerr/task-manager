@@ -5,6 +5,7 @@ import {
   ADD_TODOS,
   DELETE_TODO,
   LOADING_TODO,
+  TOGGLE_COMPLETE,
   SHOW_ERROR,
   UPDATE_TODO,
 } from "../actiontypes/TodoActionsTypes";
@@ -25,6 +26,11 @@ export const removeTodo = (todoId) => {
   return (dispatch) => dispatch(deleteTodo(todoId));
 };
 
+export const markTodoComplete = (todoId, completed) => ({
+  type: TOGGLE_COMPLETE,
+  payload: { todoId, completed },
+});
+
 export const updateTodoRequest = (todoId, editingText) => ({
   type: UPDATE_TODO,
   payload: { todoId, editingText },
@@ -36,11 +42,19 @@ export const updateTodo = (todoId, editingText) => {
     dispatch(updateTodoRequest(todoId, editingText));
   };
 };
+
+export const completeTodo = (todoId, completed) => {
+  return (dispatch) => {
+    dispatch(loadingTodos());
+    dispatch(markTodoComplete(todoId, completed));
+  };
+};
+
 export const addTodo = (title) => {
   const todo = {
     createdAt: new Date(),
     id: new Date().getTime(),
-    isCompleted: false,
+    completed: false,
     title: title,
   };
   return (dispatch) => dispatch({ type: ADD_TODO, payload: todo });

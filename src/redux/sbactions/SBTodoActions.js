@@ -8,6 +8,7 @@ import {
   LOADING_TODO,
   SHOW_ERROR,
   UPDATE_TODO,
+  TOGGLE_COMPLETE,
 } from "../actiontypes/TodoActionsTypes";
 
 export const loadingTodos = () => ({ type: LOADING_TODO });
@@ -31,7 +32,7 @@ export const addSBTodo = (title) => {
   const todo = {
     createdAt: new Date(),
     id: new Date().getTime(),
-    isCompleted: false,
+    completed: false,
     title: title,
   };
   return (dispatch) => {
@@ -56,7 +57,7 @@ export const getSBTodos = () => {
       .catch((error) => dispatch(showError(error.message)));
   };
 };
-export const removeTodo = (todoId) => {
+export const removeSBTodo = (todoId) => {
   return (dispatch) => {
     dispatch(loadingTodos());
     axios
@@ -69,6 +70,7 @@ export const removeTodo = (todoId) => {
       );
   };
 };
+
 export const updateSBTodo = (todoId, editingText) => {
   return (dispatch) => {
     dispatch(loadingTodos());
@@ -76,6 +78,25 @@ export const updateSBTodo = (todoId, editingText) => {
       .patch(`${updateTodoUrl}${todoId}`, { title: editingText })
       .then((res) => {
         dispatch(updateTodoRequest(res.id, res.title));
+      })
+      .catch((error) =>
+        dispatch(showError(`${error.message} with error code ${error.code}`))
+      );
+  };
+};
+
+export const markTodoComplete = (todoId, completed) => ({
+  type: TOGGLE_COMPLETE,
+  payload: { todoId, completed },
+});
+
+export const completeSBTodo = (todoId, completed) => {
+  return (dispatch) => {
+    dispatch(loadingTodos());
+    axios
+      .patch(`${updateTodoUrl}${todoId}`, { completed: completed })
+      .then((res) => {
+        dispatch(markTodoComplete(res.id, res.completed));
       })
       .catch((error) =>
         dispatch(showError(`${error.message} with error code ${error.code}`))
