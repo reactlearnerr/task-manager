@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FaTrash, FaSave, FaEdit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { removeTodo } from "../redux/actions/TodoActions";
+import { removeTodo, updateTodo } from "../redux/actions/TodoActions";
 import { updateSBTodo } from "../redux/sbactions/SBTodoActions";
 const Todo = ({ todo }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -15,7 +15,9 @@ const Todo = ({ todo }) => {
   const removeTodoById = () => {};
 
   const editTodo = () => {
-    dispatch(updateSBTodo(todo.id, editingText));
+    backend === "mock"
+      ? dispatch(updateTodo(todo.id, editingText))
+      : dispatch(updateSBTodo(todo.id, editingText));
     setIsEditing(false);
   };
 
