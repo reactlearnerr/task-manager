@@ -42,11 +42,11 @@ const TodoReducer = (state = initialState, action) => {
         todo: state.todos.filter((todo) => todo.id === action.payload.id),
       };
     case DELETE_TODO: {
-      console.log(action.payload);
+      const filteredTodos = state.todos.filter((todo) => todo.id !== action.payload);
       return {
         ...state,
         isLoading: false,
-        todos: state.todos.filter((todo) => todo.id !== action.payload),
+        todos: filteredTodos,
       };
     }
     case UPDATE_TODO: {
