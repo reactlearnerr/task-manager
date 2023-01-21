@@ -45,6 +45,7 @@ const TodoReducer = (state = initialState, action) => {
       console.log(action.payload);
       return {
         ...state,
+        isLoading: false,
         todos: state.todos.filter((todo) => todo.id !== action.payload),
       };
     }
