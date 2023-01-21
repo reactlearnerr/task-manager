@@ -1,0 +1,12 @@
+.title {
+  width: 75%;
+}
+
+.delete,
+.save {
+  cursor: pointer;
+}
+
+.todo-container:nth-child(2n) {
+  background-color: #e5e5e5;
+}
