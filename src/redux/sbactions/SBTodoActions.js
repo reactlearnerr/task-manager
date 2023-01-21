@@ -66,7 +66,7 @@ export const removeSBTodo = (todoId) => {
   return (dispatch) => {
     dispatch(loadingTodos());
     axios
-      .get(`${deleteTodoUrl}${todoId}`)
+      .get(deleteTodoUrl+todoId)
       .then((res) => {
         if (res.status === "SUCCESS") dispatch(deleteTodo(todoId));
       })
