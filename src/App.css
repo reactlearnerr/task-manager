@@ -10,3 +10,8 @@
 .todo-container:nth-child(2n) {
   background-color: #e5e5e5;
 }
+.createdAt {
+  font-size: 0.75em;
+  margin-bottom: 1em;
+  color: gray;
+}

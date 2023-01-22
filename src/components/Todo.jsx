@@ -16,6 +16,18 @@ import {
 } from "../redux/sbactions/SBTodoActions";
 
 const Todo = ({ todo }) => {
+  const dateFormatter = new Intl.DateTimeFormat("en-IN", {
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    timeZone: "Asia/Kolkata",
+    timeZoneName: "short",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const createdDate = dateFormatter.format(todo.updated);
+
   const [isEditing, setIsEditing] = useState(false);
   const [editingText, setEditingText] = useState("");
   const mockFlag = JSON.parse(localStorage.getItem("mock"))
@@ -60,7 +72,11 @@ const Todo = ({ todo }) => {
           ) : (
             <Typography variant="h6">{todo.title}</Typography>
           )}
+          <div className="createdAt">
+            <p>Last Modified: {createdDate}</p>
+          </div>
         </div>
+
         <div onClick={removeTodoById} className="delete">
           {<FaTrash />}
         </div>

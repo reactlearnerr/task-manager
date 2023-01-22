@@ -21,13 +21,15 @@ const initialState = {
 
 const TodoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CLEAR_TODOS:
+    case CLEAR_TODOS: {
+      localStorage.setItem("todos", JSON.stringify([]));
       return { ...state, isLoading: false };
+    }
     case ADD_TODO: {
       console.log(action);
       return {
         ...state,
-        todos: [...state.todos, action.payload],
+        todos: action.payload,
         isLoading: false,
       };
     }
