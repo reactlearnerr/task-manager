@@ -1,1 +1,2 @@
 export const TOGGLE_MOCK_FLAG = "TOGGLE_MOCK_FLAG";
+export const GET_MOCK_FLAG = "GET_MOCK_FLAG";

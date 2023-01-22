@@ -1,17 +1,21 @@
 import { CheckBox } from "@mui/icons-material";
 import { Box, Checkbox, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { mockFlagAction } from "../redux/actions/CommonActions";
+import { getMockFlag, mockFlagAction } from "../redux/actions/CommonActions";
 
 const Home = () => {
-  const mockFlag = useSelector((state) => state.common.mock);
+  let mockFlag = useSelector((state) => state.common.mock);
   const dispatch = useDispatch();
 
   const handleChange = () => {
     dispatch(mockFlagAction());
   };
+
+  useEffect(() => {
+    dispatch(getMockFlag());
+  }, []);
 
   return (
     <>
@@ -22,7 +26,7 @@ const Home = () => {
         alignItems="center"
         m={4}
       >
-        <Checkbox checked={mockFlag} onChange={handleChange} />
+        <Checkbox checked={mockFlag} onChange={() => handleChange()} />
         <Typography variant="h6">Mock Flag</Typography>
       </Box>
       <Box

@@ -18,7 +18,9 @@ import {
 const Todo = ({ todo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingText, setEditingText] = useState("");
-  const mockFlag = useSelector((state) => state.common.mock);
+  const mockFlag = localStorage.getItem("mock")
+    ? localStorage.getItem("mock")
+    : useSelector((state) => state.common.mock);
 
   const dispatch = useDispatch();
 

@@ -9,7 +9,9 @@ import TodoForm from "./TodoForm";
 const Todos = () => {
   const { todos, isLoading, error } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
-  const mockFlag = useSelector((state) => state.common.mock);
+  const mockFlag = localStorage.getItem("mock")
+    ? localStorage.getItem("mock")
+    : useSelector((state) => state.common.mock);
 
   useEffect(() => {
     mockFlag ? dispatch(getTodos()) : dispatch(getSBTodos());
