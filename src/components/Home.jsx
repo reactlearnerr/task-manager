@@ -3,14 +3,14 @@ import { Box, Checkbox, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getMockFlag, mockFlagAction } from "../redux/actions/CommonActions";
+import { getMockFlag, toggleMockFlag } from "../redux/actions/CommonActions";
 
 const Home = () => {
   let mockFlag = useSelector((state) => state.common.mock);
   const dispatch = useDispatch();
 
   const handleChange = () => {
-    dispatch(mockFlagAction());
+    dispatch(toggleMockFlag());
   };
 
   useEffect(() => {

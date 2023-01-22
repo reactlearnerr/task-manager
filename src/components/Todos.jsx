@@ -9,12 +9,17 @@ import TodoForm from "./TodoForm";
 const Todos = () => {
   const { todos, isLoading, error } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
-  const mockFlag = JSON.parse(localStorage.getItem("mock"))
-    ? localStorage.getItem("mock")
-    : useSelector((state) => state.common.mock);
 
   useEffect(() => {
-    mockFlag ? dispatch(getTodos()) : dispatch(getSBTodos());
+    const mockFlag = JSON.parse(localStorage.getItem("mock"));
+    console.log(mockFlag);
+    if (mockFlag) {
+      console.log("get todos from typicode server", mockFlag);
+      dispatch(getTodos());
+    } else {
+      console.log("get todos from sb application", mockFlag);
+      dispatch(getSBTodos());
+    }
   }, []);
 
   return (
@@ -30,14 +35,14 @@ const Todos = () => {
       <Divider />
       <TodoForm />
       <Box p={2} className="todos">
-        {isLoading ? (
+        {isLoading && error === "" ? (
           <div className="loading">Loading Todos...</div>
         ) : (
           todos.map((todo) => {
             return <Todo key={todo.id} todo={todo} />;
           })
         )}
-        {error && <div className="error">{error}</div>}
+        {!isLoading && error !== "" && <div className="error">{error}</div>}
       </Box>
     </>
   );

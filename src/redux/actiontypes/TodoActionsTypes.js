@@ -9,3 +9,4 @@ export const SHOW_ERROR = "SHOW_ERROR";
 export const ADD_TODO_ERROR = "ADD_TODO_ERROR";
 export const SB_UPDATE_TODO = "SB_UPDATE_TODO";
 export const TOGGLE_COMPLETE = "TOGGLE_COMPLETE";
+export const CLEAR_TODOS = "CLEAR_TODOS";

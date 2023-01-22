@@ -5,6 +5,7 @@ import {
   deleteTodoUrl,
   updateTodoUrl,
 } from "../../apis";
+import { resetTodos } from "../actions/TodoActions";
 import {
   ADD_TODO,
   ADD_TODOS,
@@ -58,7 +59,10 @@ export const getSBTodos = () => {
     axios
       .get(getAllTodosUrl)
       .then((res) => dispatch(fetchAllTodos(res.data)))
-      .catch((error) => dispatch(showError(error.message)));
+      .catch((error) => {
+        dispatch(showError(error.message));
+        dispatch(resetTodos());
+      });
   };
 };
 

@@ -9,6 +9,7 @@ import {
   SB_UPDATE_TODO,
   SHOW_ERROR,
   UPDATE_TODO,
+  CLEAR_TODOS,
 } from "../actiontypes/TodoActionsTypes";
 
 const initialState = {
@@ -20,6 +21,8 @@ const initialState = {
 
 const TodoReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CLEAR_TODOS:
+      return { ...state, isLoading: false };
     case ADD_TODO: {
       console.log(action);
       return {
@@ -42,7 +45,9 @@ const TodoReducer = (state = initialState, action) => {
         todo: state.todos.filter((todo) => todo.id === action.payload.id),
       };
     case DELETE_TODO: {
-      const filteredTodos = state.todos.filter((todo) => todo.id !== action.payload);
+      const filteredTodos = state.todos.filter(
+        (todo) => todo.id !== action.payload
+      );
       return {
         ...state,
         isLoading: false,

@@ -8,6 +8,7 @@ import {
   TOGGLE_COMPLETE,
   SHOW_ERROR,
   UPDATE_TODO,
+  CLEAR_TODOS,
 } from "../actiontypes/TodoActionsTypes";
 
 export const loadingTodos = () => ({ type: LOADING_TODO });
@@ -68,3 +69,5 @@ export const getTodos = () => {
       .catch((error) => dispatch(showError(error.message)));
   };
 };
+
+export const resetTodos = () => ({ type: CLEAR_TODOS });
