@@ -9,7 +9,7 @@ import TodoForm from "./TodoForm";
 const Todos = () => {
   const { todos, isLoading, error } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
-  const mockFlag = localStorage.getItem("mock")
+  const mockFlag = JSON.parse(localStorage.getItem("mock"))
     ? localStorage.getItem("mock")
     : useSelector((state) => state.common.mock);
 

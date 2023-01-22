@@ -8,7 +8,7 @@ import { addSBTodo } from "../redux/sbactions/SBTodoActions";
 const TodoForm = () => {
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
-  const mockFlag = localStorage.getItem("mock")
+  const mockFlag = JSON.parse(localStorage.getItem("mock"))
     ? localStorage.getItem("mock")
     : useSelector((state) => state.common.mock);
   const saveTodo = () => {
