@@ -26,17 +26,16 @@ export const showError = (error) => {
   return { type: SHOW_ERROR, payload: error };
 };
 
-export const deleteTodo = (todoId) => ({ type: DELETE_TODO, payload: todoId });
-
 export const updateTodoRequest = (todoId, editingText) => ({
   type: UPDATE_TODO,
   payload: { todoId, editingText },
 });
 
 export const addSBTodo = (title) => {
+  const generatedTodoId = new Date().getTime();
   const todo = {
     createdAt: new Date(),
-    id: new Date().getTime(),
+    id: generatedTodoId,
     completed: false,
     title: title,
   };
@@ -62,13 +61,16 @@ export const getSBTodos = () => {
       .catch((error) => dispatch(showError(error.message)));
   };
 };
+
+export const deleteTodo = (todoId) => ({ type: DELETE_TODO, payload: todoId });
+
 export const removeSBTodo = (todoId) => {
   return (dispatch) => {
     dispatch(loadingTodos());
     axios
       .delete(deleteTodoUrl + todoId)
       .then((res) => {
-        if (res.status === "SUCCESS") dispatch(deleteTodo(todoId));
+        if (res.data.status === "SUCCESS") dispatch(deleteTodo(todoId));
       })
       .catch((error) =>
         dispatch(showError(`${error.message} with error code ${error.code}`))
